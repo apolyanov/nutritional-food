@@ -8,13 +8,13 @@ ENV NODE_ENV development
 WORKDIR /express-docker
 
 # Copying all the files in our project
-COPY . ./src
+COPY . .
 
 # Installing dependencies
 RUN npm install
 
 # Starting our application
-CMD [ "node", "index.js" ]
+CMD [ "node", "src/index.js" ]
 
 # Exposing server port
 EXPOSE 8080
