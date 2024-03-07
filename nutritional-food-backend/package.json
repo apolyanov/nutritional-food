@@ -5,7 +5,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "start": "node --env-file=.env src/index.js",
     "dev": "nodemon --env-file=.env src/index.js",
+    "populate-data": "node --env-file=.env src/mockdata/insertData.js",
     "format": "prettier ./src/* --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
