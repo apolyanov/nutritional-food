@@ -19,7 +19,7 @@ Ensure the following software is installed on your machine:
 
 ```bash
 git clone https://github.com/apolyanov/nutritional-food.git
-cd your-app
+cd nutritional-food
 ```
 ## Starting up
 
