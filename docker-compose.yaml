@@ -5,7 +5,7 @@ services:
     container_name: express-backend
     build: ./nutritional-food-backend
     env_file:
-      - ./nutritional-food-backend/.env.staging
+      - ./nutritional-food-backend/.env.docker
     ports:
       - "8080:8080"
     depends_on:
