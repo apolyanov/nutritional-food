@@ -32,9 +32,6 @@ const FoodDataProvider = ({ children }) => {
     const newTotalGridDataIndex = totalGridData.findIndex((record) => record.id === newFood.id);
     const newSearchGridDataIndex = newSearchGridData.findIndex((record) => record.id === newFood.id);
 
-    console.log(newTotalGridDataIndex);
-    console.log(newSearchGridDataIndex);
-
     if (newTotalGridDataIndex !== -1) newTotalGridData[newTotalGridDataIndex] = { ...newFood };
 
     if (newSearchGridDataIndex !== -1) newSearchGridData[newSearchGridDataIndex] = { ...newFood };
