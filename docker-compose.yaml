@@ -9,7 +9,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - express-backend-db
+      express-backend-db:
+        condition: service_healthy
 
   express-backend-db:
     image: 'postgres:13.1-alpine'
@@ -19,6 +20,8 @@ services:
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
+    healthcheck:
+      test: pg_isready -U compose-postgres
 
   nutritional-food:
     image: 'nextjs'
