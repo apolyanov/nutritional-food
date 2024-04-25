@@ -17,7 +17,9 @@ const insertData = async () => {
   await setupDatabase();
   await setupSequelize();
 
-  await addAllFood(generateData());
+  for (let i = 0; i < 100; i++) {
+    await addAllFood(generateData());
+  }
 };
 
 insertData().then(() => console.log('Data was inserted!'));

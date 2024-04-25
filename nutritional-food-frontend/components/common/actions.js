@@ -15,7 +15,7 @@ const Actions = ({ record, isInTotalsGrid }) => {
   };
 
   const handleOnClickDelete = () => {
-    api.delete(`/food/delete/${record.id}`).then(() => {
+    api.delete(`/food/delete/${record.id}`).then(async () => {
       removeFromTotalsGridData(record.id);
       removeFromSearchGridData(record.id);
     });

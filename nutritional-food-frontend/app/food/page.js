@@ -64,8 +64,6 @@ const AddEditFood = () => {
     }
   };
 
-  const onFinishFailed = () => {};
-
   if (initialValuesLoading) {
     return <Card>Loading...</Card>;
   }
@@ -89,7 +87,6 @@ const AddEditFood = () => {
           remember: true,
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete='off'
       >
         <Form.Item

@@ -5,10 +5,16 @@ import { addFood, deleteFood, getAllFood, getFoodById, putFood, searchForFood } 
 const foodController = express.Router();
 
 foodController.get('/search', async (req, res) => {
-  const description = req.query.description;
+  const search = req.query.search ?? '';
+  const offset = req.query.offset ?? 0;
+  const limit = req.query.limit ?? 10;
+  const column = req.query.column;
+  const direction = req.query.direction;
 
-  if (description) {
-    res.status(200).json(createResponse(await searchForFood(description)));
+  if (search) {
+    const foods = await searchForFood(search, offset, limit, column, direction);
+
+    res.status(200).json(createResponse({ total: foods.count, page: foods.rows }));
   } else {
     res.status(400).json(createResponse(null, 'Bad query parameter!'));
   }

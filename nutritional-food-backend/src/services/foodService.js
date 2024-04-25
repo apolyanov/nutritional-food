@@ -1,4 +1,13 @@
 import { getModels } from '../db.config.js';
+import { Op } from 'sequelize';
+
+const getSortingArgs = (column, direction) => {
+  if (column && direction) {
+    return [[column, direction]];
+  }
+
+  return [];
+};
 
 const getAllFood = async () => await getModels().Food.findAll();
 
@@ -13,10 +22,17 @@ const deleteFood = async (id) =>
     },
   });
 
-const searchForFood = async (query) => {
-  const allFood = await getAllFood();
-
-  return allFood.filter((food) => food.description.toLowerCase().includes(query.toLowerCase()));
+const searchForFood = async (search, offset, limit, column, direction) => {
+  return await getModels().Food.findAndCountAll({
+    where: {
+      description: {
+        [Op.iLike]: `%${search.toLowerCase()}%`,
+      },
+    },
+    order: getSortingArgs(column, direction),
+    offset: Number(offset),
+    limit: Number(limit),
+  });
 };
 
 const addAllFood = async (foods) => await getModels().Food.bulkCreate(foods);

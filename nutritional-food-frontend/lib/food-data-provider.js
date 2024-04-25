@@ -1,11 +1,14 @@
 'use client';
 import { createContext, useState } from 'react';
+import useServerTable from '@/lib/useServerTable';
 
 const FoodDataProviderContext = createContext({});
 
 const FoodDataProvider = ({ children }) => {
   const [totalGridData, setTotalGridData] = useState([]);
   const [searchGridData, setSearchGridData] = useState([]);
+  const [search, setSearch] = useState('');
+  const serverTable = useServerTable({ setSearchGridData });
 
   const addToTotalsGridData = (record) => {
     setTotalGridData((prevState) => [...prevState, record]);
@@ -47,6 +50,9 @@ const FoodDataProvider = ({ children }) => {
     setTotalGridData,
     searchGridData,
     setSearchGridData,
+    search,
+    setSearch,
+    ...serverTable,
     addToTotalsGridData,
     addToSearchGridData,
     removeFromTotalsGridData,

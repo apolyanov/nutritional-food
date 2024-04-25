@@ -1,11 +1,8 @@
-import { Inter } from 'next/font/google';
 import FoodDataProvider from '@/lib/food-data-provider';
 import { Flex } from 'antd';
 import Header from '@/components/header/header';
-import TotalsDataGrid from '@/components/totals-data-grid/totals-data-grid';
-import SearchDataGrid from '@/components/search-data-grid/search-data-grid';
-
-const inter = Inter({ subsets: ['latin'] });
+import StyledComponentsRegistry from '@/lib/styled-registry';
+import { IThemeProvider } from '@impulse-ui/toolkit';
 
 export const metadata = {
   title: 'Create Next App',
@@ -15,13 +12,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body style={{ backgroundImage: `url('/images/background.jpg')` }} className={inter.className}>
-        <FoodDataProvider>
-          <Flex align={'center'} vertical gap={32}>
-            <Header />
-            {children}
-          </Flex>
-        </FoodDataProvider>
+      <body style={{ backgroundImage: `url('/images/background.jpg')` }}>
+        <IThemeProvider themes={{}}>
+          <FoodDataProvider>
+            <StyledComponentsRegistry>
+              <Flex align={'center'} vertical gap={32}>
+                <Header />
+                {children}
+              </Flex>
+            </StyledComponentsRegistry>
+          </FoodDataProvider>
+        </IThemeProvider>
       </body>
     </html>
   );

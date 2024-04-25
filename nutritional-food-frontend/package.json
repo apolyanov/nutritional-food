@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.1",
+    "@impulse-ui/toolkit": "^2.6.0-beta.4",
     "antd": "^5.15.1",
     "axios": "^1.6.7",
     "lodash": "^4.17.21",
@@ -18,6 +19,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@impulse-ui/types": "^2.6.0-beta.3",
     "eslint": "^8",
     "eslint-config-next": "14.1.1",
     "prettier": "^3.2.5"

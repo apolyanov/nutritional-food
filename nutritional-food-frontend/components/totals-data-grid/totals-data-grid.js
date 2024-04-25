@@ -1,58 +1,48 @@
 'use client';
-import { Card, Flex, Input, Table, Typography } from 'antd';
-import { columns } from '@/components/common/columns';
-import { useEffect, useMemo } from 'react';
-import api from '@/axios/axios.config';
 import useFoodData from '@/lib/useFoodData';
+import { useMemo, useState } from 'react';
+import { columns } from '@/components/common/columns';
+import { Button, Container, ImpulseTable } from '@impulse-ui/toolkit';
 
 const TotalsDataGrid = () => {
-  const { totalGridData } = useFoodData();
-  const memoizedColumns = useMemo(() => columns(true), []);
+  const { totalGridData, setTotalGridData } = useFoodData();
+  const [pagination, setPagination] = useState({
+    pageSize: 10,
+    pageIndex: 0,
+  });
+
+  const memoizedColumns = useMemo(() => columns({ isInTotalsGrid: true }), []);
+  const pageCount =
+    Math.ceil(totalGridData.length / pagination.pageSize) > 0
+      ? Math.ceil(totalGridData.length / pagination.pageSize)
+      : 1;
 
   return (
-    <Card style={{ width: '70%' }} bordered={false}>
-      <Table
-        rowKey={'id'}
-        style={{ width: '100%' }}
-        columns={memoizedColumns}
-        dataSource={totalGridData}
-        summary={(pageData) => {
-          let totalKcal = 0;
-          let totalProtein = 0;
-          let totalCarbs = 0;
-          let totalFats = 0;
-
-          pageData.forEach(({ kcal, protein, carbs, fats }) => {
-            totalKcal += Number(kcal);
-            totalProtein += Number(protein);
-            totalCarbs += Number(carbs);
-            totalFats += Number(fats);
-          });
-
-          return (
-            <Table.Summary.Row>
-              <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
-              <Table.Summary.Cell index={1} />
-              <Table.Summary.Cell index={2}>
-                <Typography.Text>{totalKcal}</Typography.Text>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={3}>
-                <Typography.Text>{totalProtein}</Typography.Text>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={4}>
-                <Typography.Text>{totalCarbs}</Typography.Text>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={5}>
-                <Typography.Text>{totalFats}</Typography.Text>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={6} />
-              <Table.Summary.Cell index={7} />
-              <Table.Summary.Cell index={8} />
-            </Table.Summary.Row>
-          );
+    <Container
+      iStyle={{
+        iCss: {
+          width: '70%',
+          background: 'white',
+          padding: 16,
+          borderRadius: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        },
+      }}
+    >
+      <Button onClick={() => setTotalGridData([])}>Clear data</Button>
+      <ImpulseTable
+        state={{
+          pagination,
         }}
+        onPaginationChange={setPagination}
+        pageCount={pageCount}
+        initialState={{ pagination: { pageIndex: 0, pageSize: 10 } }}
+        columns={memoizedColumns}
+        data={totalGridData}
       />
-    </Card>
+    </Container>
   );
 };
 
